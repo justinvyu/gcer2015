@@ -11,18 +11,20 @@
 
 #define ARM_MOTOR 0
 
-#define TOUCH 12
+#define TOUCH 11
 
 void raise_arm() {
-	motor(ARM_MOTOR, 100);
+	motor(ARM_MOTOR, -100);
 	while(digital(TOUCH) == 0) {
 		msleep(10);
 	}
+	printf("Touched");
+	off(ARM_MOTOR);
 }
 
 void lower_arm() {
-	motor(ARM_MOTOR, -60);
-	msleep(2000);
+	motor(ARM_MOTOR, 60);
+	msleep(5000);
 }
 
 #endif
