@@ -13,6 +13,14 @@
 
 #define TOUCH 11
 
+void create_forward_until_touch(int rspeed, int lspeed) {
+	create_drive_direct(rspeed, lspeed);
+	while(get_create_lbump() == 0 || get_create_rbump() == 0) {
+		msleep(10);
+	}
+	create_stop();
+}
+
 void raise_arm() {
 	motor(ARM_MOTOR, -100);
 	while(digital(TOUCH) == 0) {
