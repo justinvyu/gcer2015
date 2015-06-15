@@ -3,49 +3,28 @@
 #include "generic.h"
 #include "Han_Solo.h"
 #define left_motor 0
-#define right_motor 2
+#define right_motor 3
+#define belt_motor 2
 #define claw_servo 13
 #define half_claw 1200
 #define full_claw 2400
-	void half() { 
+	void belt() { 
 
-	servo_set(claw_servo, half_claw, 1000);
-	
+	motor(belt_motor, 100);
 	}
-	void full(){
-	servo_set(claw_servo, full_claw, 1000);
-		
-		}
 
-void ping_get(){
-	thread half_tid = thread_create(half);
-	thread full_tid = thread_create(full);
-	motor(left_motor, -40);
-	motor(right_motor, -40);
-	thread_start(half_tid);
-	msleep(1000);
-	thread_wait(half_tid);
-	thread_destroy(half_tid);
-	motor(left_motor, 40);
-	motor(right_motor, 40);
-	thread_start(full_tid);
-	msleep(1000);
-	thread_wait(full_tid);
-	thread_destroy(full_tid);
-	
-	
-	
-	}
 int main()
 {
-while(1){	
-forward(30000);
-}
-
+	thread pom_get = thread_create(belt);
+	thread_start(pom_get);
+	forward(25);
+	thread_wait(pom_get);
+	msleep(1000);
+	thread_start(pom_get);
+	forward(25);
+	right(180, 1);
+	forward(25);
 	
-	
-	
-	printf("Hello, World!\n");
 	
 	return 0;
 }
