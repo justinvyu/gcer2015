@@ -1,9 +1,9 @@
 // Created on Thu June 11 2015
 #include "drive.h"
-#inlcude "generic.h"
+#include "generic.h"
 #include "Han_Solo.h"
 #define left_motor 0
-#define right_motor 3
+#define right_motor 2
 #define claw_servo 13
 #define half_claw 1200
 #define full_claw 2400
@@ -38,6 +38,11 @@ void ping_get(){
 	}
 int main()
 {
+while(1){	
+forward(30000);
+}
+
+	
 	
 	
 	printf("Hello, World!\n");
