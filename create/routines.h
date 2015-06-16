@@ -9,6 +9,8 @@
 #define CUBE_CLOSED 1915
 #define CUBE_OPEN 900
 
+#define ARM_DOWN_POSITION 5050
+
 #define ARM_MOTOR 0
 
 #define TOUCH 11
@@ -31,8 +33,12 @@ void raise_arm() {
 }
 
 void lower_arm() {
-	motor(ARM_MOTOR, 60);
-	msleep(5000);
+	clear_motor_position_counter(ARM_MOTOR);
+	motor(ARM_MOTOR, 100);
+	while (get_motor_position_counter(ARM_MOTOR) < ARM_DOWN_POSITION) {
+		msleep(10);
+	}
+	off(ARM_MOTOR);
 }
 
 #endif
