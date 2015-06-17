@@ -41,4 +41,14 @@ void lower_arm() {
 	off(ARM_MOTOR);
 }
 
+void raise_arm_half() {
+	
+	clear_motor_position_counter(ARM_MOTOR);
+	motor(ARM_MOTOR, -100);
+	while (get_motor_position_counter(ARM_MOTOR) > -1800) {
+		msleep(10);
+	}
+	off(ARM_MOTOR);
+}
+
 #endif
