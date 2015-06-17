@@ -8,6 +8,8 @@
 #define ssp(servo, position) set_servo_position(servo, position)
 #define mm(inch) inch * 25.4
 #define cmpc(port) clear_motor_position_counter(port)
+#define lbump() get_create_lbump() == 0
+#define rbump() get_create_rbump() == 0
 
 // Servos, Motors
 #define ARM_MOTOR 0
@@ -17,6 +19,7 @@
 
 // Sensors
 #define TOUCH 11
+#define CONFIRM_LEVER 12
 
 // Misc. Utils
 #define ARM_DOWN_POSITION 5050
@@ -24,12 +27,27 @@
 #pragma mark - Create Routines
 
 void create_forward_until_touch(int rspeed, int lspeed) { // Allows for slight curvature
+
 	create_drive_direct(rspeed, lspeed);
-	while(get_create_lbump() == 0 || get_create_rbump() == 0) {
+	while(lbump() || rbump()) {
+		msleep(10);
+	}
+	printf("BUMPED\n");
+	create_stop();
+
+}
+
+void create_backward_until_confirm() {
+
+	float start = curr_time();
+	create_drive_direct(-200, -200);
+	while(digital(CONFIRM_LEVER) == 0 || (curr_time() - start) < 3.5) {
 		msleep(10);
 	}
 	create_stop();
+
 }
+
 
 #pragma mark - Arm Routines
 
@@ -43,13 +61,21 @@ void raise_arm() {
 
 }
 
-void lower_arm() {
+void lower_arm_full() {
 
 	cmpc(ARM_MOTOR);
 	motor(ARM_MOTOR, 100);
 	while (gmpc(ARM_MOTOR) < ARM_DOWN_POSITION) { // Relative to the arm at the highest position
 		msleep(10);
 	}
+	off(ARM_MOTOR);
+
+}
+
+void lower_arm(float time) {
+
+	motor(ARM_MOTOR, 100);
+	msleep(time);
 	off(ARM_MOTOR);
 
 }
@@ -70,6 +96,13 @@ void raise_arm_half() {
 void openClaw() {
 
 	ssp(CUBE_SERVO, CUBE_OPEN);
+	msleep(300);
+
+}
+
+void openClawPartial(int pos) {
+
+	ssp(CUBE_SERVO, pos);
 	msleep(300);
 
 }
