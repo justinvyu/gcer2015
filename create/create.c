@@ -1,113 +1,78 @@
 // Created on Thu June 11 2015
 
-#include "generic.h"
-#include "routines.h"
-#include "create_drive.h"
+// External
 
+#include "./generic.h"
+#include "./create_drive.h"
+#include "./routines.h"
 
-#define mm(inch) inch * 25.4
+// States
+
+#define s_START 0
+#define s_MOVETOMESA 1
+#define s_SWEEPBOTGUY 2
+#define s_PUTCUBESINCALDERA 3
+
+#define s_END 1337
 
 int main()
 {
+	printf("Establishing connection...\n");
+
 	create_connect();
 	enable_servos();
-	
-	ssp(CUBE_SERVO, CUBE_OPEN);
-	msleep(300);
-	
-	create_full();
-	
-	create_left(30, 0, 100);
-	create_block();
-	
-	ssp(CUBE_SERVO, CUBE_CLOSED);
-	msleep(300);
-	
-	raise_arm();
-	//raise_arm_half();
-	
-	create_backward(mm(3), 100);
-	create_left(87, 0, 200);
-	
-	/*
-	create_forward(mm(5.5), 100);
-	
-	create_right(96, mm(13), 200);
-	create_backward(mm(11), 200);
-	create_block();
-	
-	
-	motor(ARM_MOTOR, 80);
-	msleep(400);//msleep(500);
-	off(ARM_MOTOR);
-	msleep(1000);
-	
-	create_left(80, mm(5), 200);
-	create_block();
-	//create_right(90, 0, 200);
-	//create_left(90, 0, 300);
-	
-	msleep(10000);
-	create_forward(mm(3), 100);
-	create_right(82, 0, 100);
-	create_backward(mm(3), 100);
-	create_block();	
-	*/
-	
-	//create_forward(mm(12), 200);
-	create_forward(mm(25), 200);
-	create_block();
-	
-	msleep(1000);
-	
-	create_right(120, 0, 300);
-	create_block();
-	
-	create_backward(mm(5), 100);
-	create_block();
-	
-	msleep(100000);
-	
-	/*
-	motor(ARM_MOTOR, 60);
-	msleep(800)//msleep(500);
-	off(ARM_MOTOR);
-	*/
 
-	//create_backward(mm(2), 100);
-	/*
-	create_right(40, mm(5), 100);
-	create_block();
+	printf("Connection successful!\n");
 	
-	motor(ARM_MOTOR, 80);
-	msleep(800);//msleep(200);//msleep(800);
-	off(ARM_MOTOR);
-	*/
-	
-	/*
-	create_right(90, mm(15), 200);
-	
-	//create_right(90, 0, 200);
-	create_backward(mm(16), 100);
-	create_forward(mm(2), 100);
-	create_right(40, 0, 100);
-	create_block();
+	init();
 
-	raise_arm();
-	motor(ARM_MOTOR, 80);
-	msleep(1000);//msleep(500);
-	off(ARM_MOTOR);
-	
-	msleep(1000);
-	
-	create_left(110, 0, 500);
-	*/
-	
+	next(s_START);
+
+	while (currstate != s_END) {
+
+		state (s_START) {
+
+			create_left(30, 0, 100);
+			create_block();
+			closeClaw();
+			raise_arm();
+			create_backward(mm(3), 100);	// "Square"
+			next(s_MOVETOMESA);
+		}
+
+		state (s_MOVETOMESA) {
+
+			create_left(87, 0, 200);
+			create_forward(mm(25), 200);
+			create_block();
+			msleep(1000); // Wait for the create to "calm down"
+			next(s_SWEEPBOTGUY);
+		}
+
+		state (s_SWEEPBOTGUY) {
+
+			create_right(130, 0, 350);
+			create_left(32, 0, 200); // readjust
+			create_backward(mm(4), 200);
+			create_block();
+			next(s_PUTCUBESINCALDERA);
+		}
+
+		state (s_PUTCUBESINCALDERA) {
+
+			create_forward_until_touch(190, 200);
+			create_block();
+
+			create_right(8, 0, 200);
+			create_forward(mm(5), 300);
+			openClaw();
+			create_right(90, 0, 200);
+
+			next(s_END);
+		}
+
+	}
 	/*
-	create_right(38, mm(5), 100);
-	create_block();
-	*/
-	
 	motor(ARM_MOTOR, 80);
 	msleep(2000);//msleep(500);
 	off(ARM_MOTOR);
@@ -158,8 +123,9 @@ int main()
 	//create_backward(mm(5), 100);
 	//create_block();
 	
-	//ssp(CUBE_SERVO, CUBE_CLOSED);
+	ssp(CUBE_SERVO, CUBE_CLOSED);
 	lower_arm();
+	*/
 
 	create_disconnect();
 }
