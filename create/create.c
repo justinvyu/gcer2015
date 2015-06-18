@@ -1,13 +1,11 @@
 // Created on Thu June 11 2015
 
 // External
-
 #include "./generic.h"
 #include "./create_drive.h"
 #include "./routines.h"
 
 // States
-
 #define s_START 0
 #define s_MOVETOMESA 1
 #define s_SWEEPBOTGUY 2
@@ -17,6 +15,19 @@
 #define s_PUTCUBESINCALDERA_2 6
 
 #define s_END 1337
+
+// Menu
+#define MENUSIZE 7
+#include "./menu.h"
+struct menuitem menu[] = {
+	{s_START,"seeding"},
+	{s_MOVETOMESA,"move to mesa"},
+	{s_SWEEPBOTGUY,"sweep botguy"},
+	{s_PUTCUBESINCALDERA,"score first pair"},
+	{s_MOVEUNDERMESA,"move under mesa"},
+	{s_GRABCUBES,"grab other pair"},
+	{s_PUTCUBESINCALDERA_2, "sweep and score second pair"}
+};
 
 int main()
 {
@@ -29,8 +40,8 @@ int main()
 	
 	init();
 
+	Get_Mode();
 	start(); // Time
-	next(s_START);
 
 	while (currstate != s_END) {
 
@@ -138,60 +149,7 @@ int main()
 		}
 
 	}
-	/*
-	motor(ARM_MOTOR, 80);
-	msleep(2000);//msleep(500);
-	off(ARM_MOTOR);
-	create_backward(mm(5), 300);
-	
-	create_forward_until_touch(185, 200);
-	create_block();
-	
-	create_backward(mm(4), 100);
-	create_block();
-	
-	raise_arm();
-	
-	create_forward(mm(6), 300);
-	create_block();
-	
-	ssp(CUBE_SERVO, CUBE_OPEN);
-	msleep(300);
-	
-	create_right(50, mm(3), 100);
-	create_block();
-	
-	create_backward(mm(8), 100);
-	create_block();
-	
-	create_right(30, 0, 20);
-	create_block();
-	
-	//raise_arm();
-	
-	//create_backward(mm(2), 200);
-	//create_right(10, mm(2), 200);
-	//create_drive_direct_dist(150, 200, -mm(10));
-	//create_block();
-	
-	//ssp(CUBE_SERVO, CUBE_OPEN);
-	//msleep(300);
-	
-	//create_backward(mm(5), 200);
-	//create_right(90, 0, 200);
-	//create_black();
-	
-	//create_right(10, mm(3), 100);
-	//create_block();
-	
-	//create_backward(mm(5), 100);
-	//create_right(30, 0, 20);
-	//create_backward(mm(5), 100);
-	//create_block();
-		
-	ssp(CUBE_SERVO, CUBE_CLOSED);
-	lower_arm();
-	*/
 
+	ao();
 	create_disconnect();
 }
