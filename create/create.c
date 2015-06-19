@@ -71,6 +71,24 @@ int main()
 			create_right(130, 0, 330);
 			create_block();
 			msleep(1000);
+
+			lower_arm_full();
+			create_forward(mm(8), 200);
+			create_right(30, mm(10), 200);
+			create_backward(mm(10), 200);
+			create_left(30, 0, 200);
+			create_block();
+			
+			raise_arm_full();
+			create_backward(mm(8), 200);
+			create_block();
+
+
+			// create_right(80, mm(25), 200);
+			// create_block();
+			// msleep(500);
+			// create_right(80, mm(25), -200);
+
 			create_left(45, 0, 200); // readjust
 			//create_backward(mm(4), 200);
 			create_block();
