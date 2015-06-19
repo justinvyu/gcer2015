@@ -8,8 +8,6 @@
 #define ssp(servo, position) set_servo_position(servo, position)
 #define mm(inch) inch * 25.4
 #define cmpc(port) clear_motor_position_counter(port)
-#define lbump() get_create_lbump() == 0
-#define rbump() get_create_rbump() == 0
 
 // Servos, Motors
 #define ARM_MOTOR 0
@@ -29,7 +27,7 @@
 void create_forward_until_touch(int rspeed, int lspeed) { // Allows for slight curvature
 
 	create_drive_direct(rspeed, lspeed);
-	while(lbump() || rbump()) {
+	while(get_create_lbump() == 0 || get_create_rbump() == 0) {
 		msleep(10);
 	}
 	printf("BUMPED\n");
@@ -51,12 +49,20 @@ void create_backward_until_confirm() {
 
 #pragma mark - Arm Routines
 
-void raise_arm() {
+void raise_arm_full() {
 
 	motor(ARM_MOTOR, -100);		 // Raise
 	while(digital(TOUCH) == 0) { // Wait for touch
 		msleep(10);
 	}
+	off(ARM_MOTOR);
+
+}
+
+void raise_arm(float time) {
+
+	motor(ARM_MOTOR, -100);
+	msleep(time);
 	off(ARM_MOTOR);
 
 }
@@ -111,6 +117,7 @@ void closeClaw() {
 
 	ssp(CUBE_SERVO, CUBE_CLOSED);
 	msleep(300);
+
 }
 
 #pragma mark - Utility Functions

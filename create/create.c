@@ -26,8 +26,7 @@ struct menuitem menu[] = {
 	{s_PUTCUBESINCALDERA,"score first pair"},
 	{s_MOVEUNDERMESA,"move under mesa"},
 	{s_GRABCUBES,"grab other pair"},
-	{s_PUTCUBESINCALDERA_2, "sweep and score second pair"}
-};
+	{s_PUTCUBESINCALDERA_2, "sweep and score second pair"}};
 
 int main()
 {
@@ -36,7 +35,7 @@ int main()
 	create_connect();
 	enable_servos();
 
-	printf("Connection successful! v. 1.0.4\n");
+	printf("Connection successful! v. 1.0.6\n");
 	
 	init();
 
@@ -50,7 +49,7 @@ int main()
 			create_left(30, 0, 100);
 			create_block();
 			closeClaw();
-			raise_arm();
+			raise_arm_full();
 			create_backward(mm(3), 100);	// "Square"
 			now();
 			next(s_MOVETOMESA);
@@ -59,19 +58,20 @@ int main()
 		state (s_MOVETOMESA) {
 
 			create_left(87, 0, 200);
-			create_forward(mm(26), 200);
+			create_forward(mm(25), 200);
 			create_block();
 			msleep(1000); // Wait for the create to "calm down"
 			now();
 			next(s_SWEEPBOTGUY);
+
 		}
 
 		state (s_SWEEPBOTGUY) {
 
-			create_right(130, 0, 320);
+			create_right(130, 0, 330);
 			create_block();
 			msleep(1000);
-			create_left(30, 0, 300); // readjust
+			create_left(45, 0, 200); // readjust
 			//create_backward(mm(4), 200);
 			create_block();
 			now();
@@ -80,29 +80,47 @@ int main()
 
 		state (s_PUTCUBESINCALDERA) {
 
-			create_left(7, 0, 200);
-			create_forward_until_touch(205, 180);
+			create_forward_until_touch(200, 180);
 			create_block();
 			// create_right(3, 0, 200);
 			// create_right(8, 0, 200);
 			create_forward(mm(5), 300);
 			openClaw();
-			create_right(90, 0, 200);
+			create_right(90, 0, 150);
+			create_block();
+
 			now();
 			next(s_MOVEUNDERMESA);
+
 		}
 
 		state (s_MOVEUNDERMESA) {
 
 			// create_drive_direct_dist(150, 250, mm(26.5));
-			create_right(90, mm(20), 250);
+			
+			msleep(1000);
+			create_left(88, 0, 150);
+			create_backward(mm(30), 150);
+			create_forward(mm(12), 150);
+			create_left(90, 0, 200);
 			create_block();
-			lower_arm(2500);
-			create_forward_until_touch(200, 200);
-			create_backward(mm(16), 200);
-			create_right(88, 0, 200);
-			create_forward(mm(52), 200);
+			msleep(1000);
+			create_backward(mm(15), 200);
 			create_block();
+
+			lower_arm(2700);
+			create_forward(mm(48), 200);
+			create_block();
+
+			// create_right(90, mm(20), 250);
+			// create_block();
+			// lower_arm(2700);
+			// create_forward_until_touch(200, 200);
+			// create_backward(mm(13), 200);
+			// create_right(86, 0, 200);
+			// create_backward(mm(20), 150);
+			// create_forward(mm(64), 200);
+			// create_block();
 			now();
 			next(s_GRABCUBES);
 
@@ -116,32 +134,43 @@ int main()
 			create_backward(mm(5), 90);
 			create_block();
 			closeClaw();
+			raise_arm(2500);
 			next(s_PUTCUBESINCALDERA_2);
 
 		}
 
 		state (s_PUTCUBESINCALDERA_2) {
 
-			create_backward(mm(45), 200);
-			create_block();
-			raise_arm();
+			// create_backward(mm(45), 200);
+			// create_block();
+			// raise_arm_full();
 			
-			create_right(90, mm(2), 200);
-			create_backward(mm(20), 150);
-			create_left(90, 0, 200);
+			// create_right(87, mm(2), 200);
+			// create_backward(mm(25), 150);
+			// create_forward(mm(2), 200);
+			// create_left(88, 0, 200);
+			// create_backward(mm(30), 150);
+			// create_forward(mm(23), 150);
+			// create_backward(mm(3), 150);
+			// //create_left(90, 0, 200);
 			
-			create_right(30, mm(10), 100);
-			create_block();
+			// //create_forward(mm(5), 200);
+			// create_right(20, mm(7), 100);
+			// create_block();
 
-			lower_arm(900);
+			// lower_arm(900);
 			
-			create_right(38, mm(5), 100);
-			create_right(20, 0, 200);
-			create_forward_until_touch(180, 200);
+			// create_right(48, mm(5), 200);
+			// create_drive_direct_dist(185, 220, mm(20));
+			// create_drive_direct_dist(200, 185, mm(10));
+			// //create_drive_direct_dist(180, 205, mm(28));
+			// //create_forward_until_touch(180, 200);
+			// create_block();
 
-			raise_arm();
-			create_forward(mm(5), 300);
-			openClaw();
+			// raise_arm_full();
+			// create_forward(mm(5), 300);
+			// create_block();
+			// openClaw();
 
 			now();
 			next(s_END);

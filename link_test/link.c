@@ -46,8 +46,9 @@ int main()
 
 		state (s_GETFIRSTHALFTRIBBLES) {
 
-			thread_start(revolving_tid);
+			thread_start(revolving_tid); // Start spinning
 			
+
 			next(s_SCOREFIRSTHALF);
 
 		}
