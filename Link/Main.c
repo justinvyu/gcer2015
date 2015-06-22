@@ -18,8 +18,6 @@ int main()
 	thread pom_get = thread_create(belt);
 	thread_start(pom_get);
 	forward(25);
-	thread_wait(pom_get);
-	msleep(1000);
 	thread_start(pom_get);
 	forward(25);
 	right(180, 1);
