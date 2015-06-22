@@ -17,6 +17,7 @@
 
 // Sensors
 #define TOUCH 11
+#define SQUARE_TOUCH 15
 #define CONFIRM_LEVER 12
 
 // Misc. Utils
@@ -46,6 +47,18 @@ void create_backward_until_confirm() {
 
 }
 
+void create_square() {
+
+	float st = curr_time();
+	create_drive_direct(-150, -150);
+	while(digital(SQUARE_TOUCH) == 0 || (curr_time() - st) < 5.0) {
+		msleep(10);
+	}
+	create_stop();
+	create_backward(mm(2), 150);
+	create_block();
+
+}
 
 #pragma mark - Arm Routines
 
