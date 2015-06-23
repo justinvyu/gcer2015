@@ -18,8 +18,8 @@
 #define s_END 1337
 
 // Menu
-#define MENUSIZE 8
 #include "./menu.h"
+#define MENU_SIZE 8
 struct menuitem menu[] = {
 	{s_TEST, "test"},
 	{s_START,"seeding"},
@@ -41,7 +41,7 @@ int main()
 	printf("Connection successful! v. 1.0.7\n");
 	
 	init();
-	Get_Mode();
+	Get_Mode(MENU_SIZE);
 	
 	if (currstate == s_PUTCUBESINCALDERA_2) {
 		raise_arm_full();
@@ -79,7 +79,7 @@ int main()
 
 		state (s_MOVETOMESA) {
 
-			create_left(87, 0, 200);
+			create_left(85, 0, 200);
 			create_forward(mm(25), 200);
 			create_block();
 
@@ -99,7 +99,7 @@ int main()
 			raise_arm_full();
 			msleep(1000);
 
-			create_left(75, 0, 200); // readjust
+			create_left(77, 0, 200); // readjust
 			//create_backward(mm(4), 200);
 			create_block();
 			now();
@@ -133,8 +133,11 @@ int main()
 			create_left(90, 0, 150);
 			
 			//create_square();
-			create_backward(mm(26), 150);
+			create_backward(mm(28), 150);
+			create_block();
+
 			create_forward(mm(12), 150);
+			create_block();
 			create_left(90, 0, 200);
 			create_block();
 
@@ -180,7 +183,7 @@ int main()
 
 		state (s_PUTCUBESINCALDERA_2) {
 
-			create_right(89, 0, 150);
+			create_right(91, 0, 150);
 			create_backward(mm(17), 150);
 			create_left(89, 0, 150);
 			create_forward(mm(10), 100);
@@ -193,7 +196,7 @@ int main()
 			create_backward(mm(2), 100);
 			create_block();
 
-			lower_arm(680);
+			lower_arm(660);
 			create_forward(mm(2), 100);
 			create_block();
 
