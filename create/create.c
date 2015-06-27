@@ -53,12 +53,12 @@ int main()
 
 		state (s_TEST) {
 			
-			raise_arm(2000);
-			create_forward(mm(15), 220);
-			create_block();
-			msleep(1000);
-			create_backward(mm(15), 200);
-			create_block();
+			// raise_arm(2000);
+			// create_forward(mm(15), 220);
+			// create_block();
+			// msleep(1000);
+			// create_backward(mm(15), 200);
+			// create_block();
 			
 			next(s_END);
 			
@@ -93,15 +93,16 @@ int main()
 
 		state (s_SWEEPBOTGUY) {
 
-			create_right(160, 0, 380);
+			create_right(160, 0, 440);
 			lower_arm(200);
 			create_block();
 			raise_arm_full();
 			msleep(1000);
 
-			create_left(77, 0, 200); // readjust
+			create_left(83, 0, 200); // readjust
 			//create_backward(mm(4), 200);
 			create_block();
+			lower_arm(200);
 			now();
 			next(s_PUTCUBESINCALDERA);
 		}
@@ -145,7 +146,7 @@ int main()
 			create_backward(mm(15), 200);
 			create_block();
 
-			lower_arm(2700);
+			lower_arm(1600);
 			create_forward(mm(56), 200);
 			create_block();
 
@@ -166,7 +167,7 @@ int main()
 		state (s_GRABCUBES) {
 
 			openClawPartial(CUBE_OPEN + 100);
-			lower_arm(2500);
+			lower_arm(2300);
 			// create_backward_until_confirm();
 			create_backward(mm(5), 90);
 			create_block();
@@ -174,6 +175,7 @@ int main()
 			raise_arm(2500);
 
 			create_backward(mm(50), 200);
+			//create_backward_until_tophat();
 			create_block();
 			raise_arm_full();
 
@@ -190,13 +192,14 @@ int main()
 			create_block();
 
 			msleep(500);
-			create_right(38, mm(10), 150);
+			create_right(38, mm(12), 150);
 			create_block();
 			msleep(500);
-			create_backward(mm(2), 100);
+			create_backward(mm(3), 100);
 			create_block();
 
-			lower_arm(660);
+			//lower_arm(660);
+			lower_arm(720);
 			create_forward(mm(2), 100);
 			create_block();
 

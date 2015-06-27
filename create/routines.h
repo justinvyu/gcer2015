@@ -11,17 +11,19 @@
 
 // Servos, Motors
 #define ARM_MOTOR 0
-#define CUBE_SERVO 2
-#define CUBE_CLOSED 1915
-#define CUBE_OPEN 900
+#define CUBE_SERVO 3
+#define CUBE_CLOSED 1860
+#define CUBE_OPEN 960
 
 // Sensors
 #define TOUCH 11
 #define SQUARE_TOUCH 15
 #define CONFIRM_LEVER 12
+#define RIGHT_TOPHAT 2
 
 // Misc. Utils
 #define ARM_DOWN_POSITION 5050
+#define TOPHAT_THRESH 300
 
 #pragma mark - Create Routines
 
@@ -57,6 +59,15 @@ void create_square() {
 	create_stop();
 	create_backward(mm(2), 150);
 	create_block();
+
+}
+
+void create_backward_until_tophat() {
+		create_drive_direct(-150, -150);
+		while(analog10(RIGHT_TOPHAT) < TOPHAT_THRESH) {
+			msleep(10);
+		}
+		create_stop();
 
 }
 
