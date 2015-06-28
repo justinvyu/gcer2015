@@ -47,6 +47,9 @@ int main()
 		raise_arm_full();
 		closeClaw();
 	}
+	
+	wait_for_light(LIGHT_SENS);
+	shut_down_in(119);
 	start(); // Time
 
 	while (currstate != s_END) {
@@ -66,21 +69,25 @@ int main()
 		
 		state (s_START) {
 
+			msleep(2000);
+			lower_arm(1000);
+			
 			create_left(30, 0, 90);
 			create_block();
 			//closeClaw();
 			servo_set(CUBE_SERVO, CUBE_CLOSED, 1);
 			raise_arm_full();
 			//create_square();
-			create_backward(mm(3), 100);	// "Square"
+			create_backward(mm(2), 100);	// "Square"
 			now();
 			next(s_MOVETOMESA);
+
 		}
 
 		state (s_MOVETOMESA) {
 
 			create_left(85, 0, 200);
-			create_forward(mm(25), 200);
+			create_forward(mm(24), 180);
 			create_block();
 
 			msleep(1000); // Wait for the create to "calm down"
@@ -93,23 +100,31 @@ int main()
 
 		state (s_SWEEPBOTGUY) {
 
-			create_right(160, 0, 440);
+			create_right(160, 0, 350);
 			lower_arm(200);
 			create_block();
 			raise_arm_full();
 			msleep(1000);
+	
+			//create_left(10, 0, 150);
+			// create_forward(mm(10), 250);
+			// create_block();
+			// msleep(1000);
+			// create_backward(mm(10), 150);
+			//create_left(69, 0, 200); // readjust
+			
+			create_left(79, 0, 200); // readjust
 
-			create_left(83, 0, 200); // readjust
 			//create_backward(mm(4), 200);
 			create_block();
-			lower_arm(200);
+			//lower_arm(100);
 			now();
 			next(s_PUTCUBESINCALDERA);
 		}
 
 		state (s_PUTCUBESINCALDERA) {
 
-			create_forward_until_touch(200, 180);
+			create_forward_until_touch(200, 177);
 			create_block();
 			// create_right(3, 0, 200);
 			// create_right(8, 0, 200);
@@ -134,12 +149,13 @@ int main()
 			create_left(90, 0, 150);
 			
 			//create_square();
-			create_backward(mm(28), 150);
+			create_backward(mm(26), 150);
 			create_block();
+			msleep(1000);
 
 			create_forward(mm(12), 150);
 			create_block();
-			create_left(90, 0, 200);
+			create_left(88.5, 0, 200);
 			create_block();
 
 			msleep(1000);
@@ -186,7 +202,9 @@ int main()
 		state (s_PUTCUBESINCALDERA_2) {
 
 			create_right(91, 0, 150);
-			create_backward(mm(17), 150);
+			create_backward(mm(15), 150);
+			create_block();
+			msleep(1000);
 			create_left(89, 0, 150);
 			create_forward(mm(10), 100);
 			create_block();
@@ -211,10 +229,19 @@ int main()
 			create_block();
 			create_drive_direct_dist(180, 205, mm(25));
 			create_block();
-
-			openClaw();
 			raise_arm_full();
-			create_right(90, 0, 200);
+			openClaw();
+			extendExtension();
+			msleep(1000);
+			lower_arm(600);
+
+			//create_left(5, 0, 200);
+			//create_block();
+			
+			msleep(1000);
+			retractExtension();
+			//raise_arm_full();
+			//create_right(90, 0, 200);
 
 			now();
 			next(s_END);

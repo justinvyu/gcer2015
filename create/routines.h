@@ -11,19 +11,25 @@
 
 // Servos, Motors
 #define ARM_MOTOR 0
-#define CUBE_SERVO 3
-#define CUBE_CLOSED 1860
-#define CUBE_OPEN 960
+
+#define EXTENSION_SERVO 1
 
 // Sensors
 #define TOUCH 11
 #define SQUARE_TOUCH 15
 #define CONFIRM_LEVER 12
 #define RIGHT_TOPHAT 2
+#define LIGHT_SENS 0
 
 // Misc. Utils
 #define ARM_DOWN_POSITION 5050
 #define TOPHAT_THRESH 300
+#define CUBE_SERVO 3
+#define CUBE_CLOSED 1860
+#define CUBE_OPEN 960
+
+#define EXTENSION_EXTENDED 950
+#define EXTENSION_RETRACTED 1766
 
 #pragma mark - Create Routines
 
@@ -121,6 +127,22 @@ void raise_arm_half() {
 
 }
 
+#pragma mark - Extension Functions
+
+void extendExtension() {
+
+	servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 2);
+	msleep(200);
+
+}
+
+void retractExtension() {
+
+	ssp(EXTENSION_SERVO, EXTENSION_RETRACTED);
+	msleep(200);
+
+}
+
 #pragma mark - Cube Functions (Servo)
 
 void openClaw() {
@@ -154,6 +176,7 @@ void closeClaw() {
 void init() {
 		
 		openClaw();
+		retractExtension();
 		create_full();
 }
 
