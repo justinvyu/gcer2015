@@ -87,7 +87,7 @@ int main()
 		state (s_MOVETOMESA) {
 
 			create_left(85, 0, 200);
-			create_forward(mm(24), 180);
+			create_forward(mm(24.5), 180);
 			create_block();
 
 			msleep(1000); // Wait for the create to "calm down"
@@ -106,12 +106,12 @@ int main()
 			//raise_arm_full();
 			msleep(500);
 			
-			create_right(10, 0, 150);
+			create_right(20, 0, 150);
 			create_block();
 
 			lower_arm_full();
 
-			create_left(79, 0, 200);
+			create_left(89, 0, 200);
 			create_block();
 			create_forward(mm(6), 200);
 			create_right(90, 0, 250);
@@ -240,7 +240,9 @@ int main()
 			create_right(20, mm(6), 150);
 			create_block();
 			msleep(200);
-			create_right(24, mm(6), 150);
+			//create_right(24, mm(6), 150);
+			create_drive_direct(200, 50);
+			msleep(800);
 			create_block();
 			create_drive_direct_dist(182, 205, mm(25));
 			create_block();
