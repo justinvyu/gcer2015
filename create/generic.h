@@ -15,6 +15,7 @@ int et_avg(int port);
 
 //LIGHT START
 void light_start(int sensor);
+void justin_light_start(int light_sensor);
 
 //TIMING
 void start();

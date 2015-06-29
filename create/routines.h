@@ -131,14 +131,14 @@ void raise_arm_half() {
 
 void extendExtension() {
 
-	servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 2);
+	servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 1);
 	msleep(200);
 
 }
 
 void retractExtension() {
 
-	ssp(EXTENSION_SERVO, EXTENSION_RETRACTED);
+	servo_set(EXTENSION_SERVO, EXTENSION_RETRACTED, 1);
 	msleep(200);
 
 }
@@ -176,7 +176,7 @@ void closeClaw() {
 void init() {
 		
 		openClaw();
-		retractExtension();
+		ssp(EXTENSION_SERVO, EXTENSION_RETRACTED);
 		create_full();
 }
 
