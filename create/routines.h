@@ -29,7 +29,7 @@
 #define CUBE_OPEN 960
 
 #define EXTENSION_EXTENDED 950
-#define EXTENSION_RETRACTED 1766
+#define EXTENSION_RETRACTED 1720
 
 #pragma mark - Create Routines
 

@@ -74,10 +74,8 @@ int main()
 			
 			create_left(30, 0, 90);
 			create_block();
-			//closeClaw();
 			servo_set(CUBE_SERVO, CUBE_CLOSED, 1);
 			raise_arm_full();
-			//create_square();
 			create_backward(mm(2), 100);	// "Square"
 			now();
 			next(s_MOVETOMESA);
@@ -91,8 +89,6 @@ int main()
 			create_block();
 
 			msleep(1000); // Wait for the create to "calm down"
-
-			//lower_arm(200);
 			now();
 			next(s_SWEEPBOTGUY);
 
@@ -118,18 +114,7 @@ int main()
 			create_block();
 
 			raise_arm_full();
-			create_left(101.5, 0, 200);
-
-			//create_left(10, 0, 150);
-			// create_forward(mm(10), 250);
-			// create_block();
-			// msleep(1000);
-			// create_backward(mm(10), 150);
-			//create_left(69, 0, 200); // readjust
-			
-			//create_left(79, 0, 200); // readjust
-
-			//create_backward(mm(4), 200);
+			create_left(103, 0, 200);
 			create_block();
 			lower_arm(200); 
 			now();
@@ -140,8 +125,6 @@ int main()
 
 			create_forward_until_touch(200, 165);
 			create_block();
-			// create_right(3, 0, 200);
-			// create_right(8, 0, 200);
 			create_forward(mm(5), 300);
 			create_block();
 			msleep(500);
@@ -157,8 +140,6 @@ int main()
 		}
 
 		state (s_MOVEUNDERMESA) {
-
-			// create_drive_direct_dist(150, 250, mm(26.5));
 			
 			msleep(500);
 			create_left(90, 0, 150);
@@ -180,16 +161,6 @@ int main()
 			lower_arm(1600);
 			create_forward(mm(56), 280);
 			create_block();
-
-			// create_right(90, mm(20), 250);
-			// create_block();
-			// lower_arm(2700);
-			// create_forward_until_touch(200, 200);
-			// create_backward(mm(13), 200);
-			// create_right(86, 0, 200);
-			// create_backward(mm(20), 150);
-			// create_forward(mm(64), 200);
-			// create_block();
 			now();
 			next(s_GRABCUBES);
 
@@ -199,14 +170,12 @@ int main()
 
 			openClawPartial(CUBE_OPEN + 100);
 			lower_arm(2300);
-			// create_backward_until_confirm();
 			create_backward(mm(5), 90);
 			create_block();
 			closeClaw();
 			raise_arm(2500);
 
 			create_backward(mm(50), 250);
-			//create_backward_until_tophat();
 			create_block();
 			raise_arm_full();
 
@@ -225,7 +194,7 @@ int main()
 			create_block();
 
 			msleep(500);
-			create_right(38, mm(12), 150);
+			create_right(38, mm(9), 150);
 			create_block();
 			msleep(500);
 			create_backward(mm(4), 100);
@@ -237,36 +206,30 @@ int main()
 			create_block();
 
 			msleep(200);
-			create_right(20, mm(6), 150);
+			create_right(20, mm(5), 150);
 			create_block();
 			msleep(200);
 			//create_right(24, mm(6), 150);
 			create_drive_direct(200, 50);
-			msleep(800);
+			msleep(600);
 			create_block();
-			create_drive_direct_dist(182, 205, mm(25));
+			create_drive_direct_dist(180, 215, mm(25));
 			create_block();
 			raise_arm_full();
 			openClaw();
 			
 			// 6th Cube
-			create_left(15, 0, 150);
-			//create_backward(mm(5), 200);
-			//create_right(5, 0, 150);
-			//create_left(10, mm(6), 200);
+			//create_backward(mm(4), 200);
+			create_left(10, 0, 150);
+			//create_forward(mm(3), 200);
 			
 			create_block();
 			extendExtension();
 			msleep(500);
 			lower_arm(600);
-
-			//create_left(5, 0, 200);
-			//create_block();
 			
 			msleep(1000);
 			retractExtension();
-			//raise_arm_full();
-			//create_right(90, 0, 200);
 
 			now();
 			next(s_END);

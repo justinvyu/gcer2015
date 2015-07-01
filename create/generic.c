@@ -27,7 +27,7 @@ int et_avg(int port)
 	int totalcount = 100;
 	int run = 0;
 	int i;
-	for(i=0;i<totalcount;i++)
+	for(i = 0;i<totalcount;i++)
 	{
 		run += analog_et(port);
 		msleep(2);
