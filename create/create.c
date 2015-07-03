@@ -48,7 +48,7 @@ int main()
 		closeClaw();
 	}
 	
-	//wait_for_light(LIGHT_SENS);
+	wait_for_light(LIGHT_SENS);
 	shut_down_in(119);
 	start(); // Time
 
@@ -97,7 +97,7 @@ int main()
 		state (s_SWEEPBOTGUY) {
 
 			create_right(160, 0, 350);
-			lower_arm(200);
+			lower_arm(120);
 			create_block();
 			//raise_arm_full();
 			msleep(500);
@@ -114,7 +114,7 @@ int main()
 			create_block();
 
 			raise_arm_full();
-			create_left(103, 0, 200);
+			create_left(102.5, 0, 200);
 			create_block();
 			lower_arm(200); 
 			now();
@@ -143,9 +143,12 @@ int main()
 			
 			msleep(500);
 			create_left(90, 0, 150);
+			create_forward_until_touch(150, 150);
+			create_block();
 			
+			msleep(500);
 			//create_square();
-			create_backward(mm(26.5), 150);
+			create_backward(mm(26.8), 150);
 			create_block();
 			msleep(500);
 
@@ -197,7 +200,7 @@ int main()
 			create_right(38, mm(9), 150);
 			create_block();
 			msleep(500);
-			create_backward(mm(4), 100);
+			create_backward(mm(5), 100);
 			create_block();
 
 			//lower_arm(660);
@@ -213,15 +216,15 @@ int main()
 			create_drive_direct(200, 50);
 			msleep(600);
 			create_block();
-			create_drive_direct_dist(180, 215, mm(25));
+			create_drive_direct_dist(178, 215, mm(25));
 			create_block();
 			raise_arm_full();
 			openClaw();
 			
 			// 6th Cube
-			//create_backward(mm(4), 200);
-			create_left(10, 0, 150);
-			//create_forward(mm(3), 200);
+			create_backward(mm(2), 200);
+			create_left(12, 0, 150);
+			create_forward(mm(1), 200);
 			
 			create_block();
 			extendExtension();
