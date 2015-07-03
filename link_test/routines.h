@@ -4,9 +4,11 @@
 #define _ROUTINES_H_
 
 // Shortcuts
+#define ssp(port, pos) set_servo_position(port, pos)
+#define cmpc(port) clear_motor_position_counter(port)
 
 // Servos, Motors
-#define REVOLVE_MOTOR 2
+#define REVOLVE_MOTOR 1
 
 // Sensors
 #define TOPHAT 0

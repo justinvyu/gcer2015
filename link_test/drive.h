@@ -3,20 +3,20 @@
 
 //primary driving code
 
-#define MOT_LEFT 3
-#define MOT_RIGHT 1
+#define MOT_LEFT 0
+#define MOT_RIGHT 2
 
 #define PI 3.14159265358979
 
 #define SPD 100//turning
-#define SPDl 97.//left forward
-#define SPDr 95.//right forward
+#define SPDl 13.//left forward
+#define SPDr 10.//right forward
 #define rdistmult 1.0
-#define SPDlb 85.//left backward
-#define SPDrb 87.//right backward
+#define SPDlb 8.//left backward
+#define SPDrb 3.//right backward
 #define rdistmultb (SPDrb/SPDlb)
 #define wheeldiameter 5.5 //Unique to each robot
-#define ks 14.2 //Unique to each robot
+#define ks 14.5 //Unique to each robot
 #define CMtoBEMF (850/(PI*wheeldiameter))
 
 void drive_off();
