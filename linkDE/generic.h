@@ -1,3 +1,6 @@
+#ifndef _GENERIC_H_
+#define _GENERIC_H_
+
 //UTILITY
 float bound(float num, float max)
 {
@@ -174,3 +177,4 @@ int getabcbutton(){//returns 0,1,2 on a,b,c
 	msleep(2000);beep();
 	return 0;//if something broke
 }
+#endif
