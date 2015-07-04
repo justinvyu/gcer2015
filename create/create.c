@@ -63,6 +63,12 @@ int main()
 			// create_backward(mm(15), 200);
 			// create_block();
 			
+			int i, total = 5000, interval = 500;
+			for(i = 0; i < total / interval; i++) {
+				printf("%d\n", analog10(3));
+				msleep(interval);
+			}
+			
 			next(s_END);
 			
 		}
@@ -96,8 +102,8 @@ int main()
 
 		state (s_SWEEPBOTGUY) {
 
-			create_right(160, 0, 350);
-			lower_arm(120);
+			create_right(160, 0, 380);
+			lower_arm(130);
 			create_block();
 			//raise_arm_full();
 			msleep(500);
@@ -114,7 +120,8 @@ int main()
 			create_block();
 
 			raise_arm_full();
-			create_left(102.5, 0, 200);
+			//create_left(102.5, 0, 200);
+			create_left(104, 0, 200);
 			create_block();
 			lower_arm(200); 
 			now();
@@ -123,6 +130,7 @@ int main()
 
 		state (s_PUTCUBESINCALDERA) {
 
+			//create_forward_until_touch(200, 163);
 			create_forward_until_touch(200, 165);
 			create_block();
 			create_forward(mm(5), 300);
@@ -171,7 +179,7 @@ int main()
 
 		state (s_GRABCUBES) {
 
-			openClawPartial(CUBE_OPEN + 100);
+			openClawPartial(CUBE_OPEN + 300);
 			lower_arm(2300);
 			create_backward(mm(5), 90);
 			create_block();
@@ -214,7 +222,7 @@ int main()
 			msleep(200);
 			//create_right(24, mm(6), 150);
 			create_drive_direct(200, 50);
-			msleep(600);
+			msleep(700);
 			create_block();
 			create_drive_direct_dist(178, 215, mm(25));
 			create_block();
@@ -223,13 +231,16 @@ int main()
 			
 			// 6th Cube
 			create_backward(mm(2), 200);
-			create_left(12, 0, 150);
+			create_left(13, 0, 150);
 			create_forward(mm(1), 200);
 			
 			create_block();
 			extendExtension();
 			msleep(500);
-			lower_arm(600);
+			lower_arm(700);
+			
+			create_backward(mm(2), 200);
+			create_block();
 			
 			msleep(1000);
 			retractExtension();

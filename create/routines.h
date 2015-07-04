@@ -33,30 +33,9 @@
 
 #pragma mark - Create Routines
 
-/**
- * Since the KIPR library's create_drive_direct doesn't do what the documentation
- * says it does, we made a "real" function that simply switched around the parameters
- * to make things less confusing.
- * 
- * @param rspeed The speed of the right create motor (1-500)
- * @param lspeed The speed of the left create motor (1-500)
- */
-void create_drive_direct_real(int rspeed, int lspeed) {
-	create_drive_direct(lspeed, rspeed);
-}
-
-/**
- * The Create drives with specified speeds for each motor until either the left bumper
- * or right bumper is pressed, terminating the action. 
- *
- * This is used when sweeping the tribbles & cubes into the Caldera.
- *
- * @param rspeed The speed of the right create motor (1-500)
- * @param lspeed The speed of the left create motor (1-500)
- */
 void create_forward_until_touch(int rspeed, int lspeed) { // Allows for slight curvature
 
-	create_drive_direct_real(rspeed, lspeed);
+	create_drive_direct(rspeed, lspeed);
 	while(get_create_lbump() == 0 || get_create_rbump() == 0) {
 		msleep(10);
 	}
