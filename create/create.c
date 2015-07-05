@@ -124,10 +124,11 @@ int main()
 			//create_right(180, 0, 250);
 			create_block();
 			msleep(200);
+			raise_arm(100);
 			// Push tribbles to prevent tripping later on
 			create_forward(mm(10), 200);
 			create_backward(mm(10), 200);
-			create_left(3, 0, 250);
+			//create_left(3, 0, 250);
 			create_block();
 			
 			raise_arm_full();
@@ -135,8 +136,12 @@ int main()
 			
 			// Readjust
 			create_left(89, 0, 200);
-			create_drive_direct(-200, -200);
-			msleep(200);
+			create_drive_direct(-200, -200); // square after turns to prevent botgal/pod diff.s
+			msleep(3000);
+			create_block();
+
+			create_forward(mm(4), 200);
+			create_left(13, 0, 200);
 			create_block();
 	
 			lower_arm(220); 
@@ -251,7 +256,7 @@ int main()
 			msleep(600);
 			create_block();
 			//create_drive_direct_dist(178, 215, mm(25));
-			create_drive_direct_dist(170, 215, mm(25));
+			create_drive_direct_dist(168, 215, mm(25));
 			raise_arm(280);
 			create_block();
 			//create_right(1, 0, 200);
