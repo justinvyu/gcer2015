@@ -3,7 +3,7 @@
 
 //primary driving code
 
-#define MOT_LEFT 0
+#define MOT_LEFT 3
 #define MOT_RIGHT 2
 
 #define PI 3.14159265358979
