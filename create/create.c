@@ -63,6 +63,12 @@ int main()
 			// create_backward(mm(15), 200);
 			// create_block();
 			
+			int i, total = 5000, interval = 500;
+			for(i = 0; i < total / interval; i++) {
+				printf("%d\n", analog10(3));
+				msleep(interval);
+			}
+			
 			next(s_END);
 			
 		}
@@ -76,7 +82,7 @@ int main()
 			create_block();
 			servo_set(CUBE_SERVO, CUBE_CLOSED, 1);
 			raise_arm_full();
-			create_backward(mm(2), 100);	// "Square"
+			create_backward(mm(2), 150);	// "Square"
 			now();
 			next(s_MOVETOMESA);
 
@@ -84,11 +90,11 @@ int main()
 
 		state (s_MOVETOMESA) {
 
-			create_left(85, 0, 200);
-			create_forward(mm(24.5), 180);
+			create_left(84.5, 0, 200);
+			create_forward(mm(24.5), 200);
 			create_block();
 
-			msleep(1000); // Wait for the create to "calm down"
+			msleep(800); // Wait for the create to "calm down"
 			now();
 			next(s_SWEEPBOTGUY);
 
@@ -97,41 +103,61 @@ int main()
 		state (s_SWEEPBOTGUY) {
 
 			create_right(160, 0, 350);
-			lower_arm(120);
+			lower_arm(350);
 			create_block();
-			//raise_arm_full();
 			msleep(500);
 			
-			create_right(20, 0, 150);
+			create_right(20, 0, 200);
 			create_block();
 
 			lower_arm_full();
-
-			create_left(89, 0, 200);
+			//lower_arm(2400);
+			// Sweep botguy out of the way if he is to the left of the robot
+			create_left(92, 0, 280);
+			//create_left(160, 0, 250);
 			create_block();
-			create_forward(mm(6), 200);
-			create_right(90, 0, 250);
-			create_block();
 
+			//lower_arm(1000);
+			create_forward(mm(6), 250);
+			// Sweep botguy out of the way if he is to the right of the robot & avoid charlie's robot
+			create_right(91, 0, 200);
+			//create_right(180, 0, 250);
+			create_block();
+			msleep(200);
+			// Push tribbles to prevent tripping later on
+			create_forward(mm(10), 200);
+			create_backward(mm(10), 200);
+			create_left(3, 0, 250);
+			create_block();
+			
 			raise_arm_full();
-			create_left(102.5, 0, 200);
+			//create_left(102.5, 0, 200);
+			
+			// Readjust
+			create_left(89, 0, 200);
+			create_drive_direct(-200, -200);
+			msleep(200);
 			create_block();
-			lower_arm(200); 
+	
+			lower_arm(220); 
 			now();
 			next(s_PUTCUBESINCALDERA);
 		}
 
 		state (s_PUTCUBESINCALDERA) {
 
-			create_forward_until_touch(200, 165);
+			create_forward_until_touch(200, 167);
 			create_block();
-			create_forward(mm(5), 300);
+			create_forward(mm(3), 300);
+			create_left(3, 0, 200);
 			create_block();
 			msleep(500);
 			openClaw();
+			//create_left(3, 0, 200);
 			raise_arm_full();
-			create_right(90, 0, 150);
-			create_forward(mm(6), 150);
+			//create_right(92, 0, 200);
+			create_right(90, 0, 200);
+			create_forward(mm(6), 200);
 			create_block();
 
 			now();
@@ -142,19 +168,22 @@ int main()
 		state (s_MOVEUNDERMESA) {
 			
 			msleep(500);
-			create_left(90, 0, 150);
-			create_forward_until_touch(150, 150);
+			create_left(89, 0, 150);
+			create_forward_until_touch(200, 200);
 			create_block();
 			
-			msleep(500);
+			//msleep(500);
 			//create_square();
-			create_backward(mm(26.8), 150);
+			create_backward(mm(26.5), 200);
+			create_block();
+			create_drive_direct(-200, -200);
+			msleep(1500);
 			create_block();
 			msleep(500);
 
 			create_forward(mm(12), 150);
 			create_block();
-			create_left(88.5, 0, 200);
+			create_left(88, 0, 200);
 			create_block();
 
 			msleep(500);
@@ -162,23 +191,28 @@ int main()
 			create_block();
 
 			lower_arm(1600);
-			create_forward(mm(56), 280);
+			//create_forward(mm(56), 320);
+			create_forward(mm(62), 320);
 			create_block();
+			msleep(500);
+
 			now();
 			next(s_GRABCUBES);
 
 		}
 
 		state (s_GRABCUBES) {
-
-			openClawPartial(CUBE_OPEN + 100);
-			lower_arm(2300);
+			
+			create_backward(mm(3), 200);
+			create_block();
+			openClawPartial(CUBE_OPEN + 200);
+			lower_arm(2400);
 			create_backward(mm(5), 90);
 			create_block();
 			closeClaw();
 			raise_arm(2500);
 
-			create_backward(mm(50), 250);
+			create_backward(mm(50), 300);
 			create_block();
 			raise_arm_full();
 
@@ -188,50 +222,59 @@ int main()
 
 		state (s_PUTCUBESINCALDERA_2) {
 
-			create_right(91, 0, 150);
-			create_backward(mm(15), 150);
+			create_right(91, 0, 200);
+			create_backward(mm(13), 200);
 			create_block();
 			msleep(1000);
-			create_left(89, 0, 150);
-			create_forward(mm(11.5), 100);
+			create_left(89, 0, 200);
+			create_forward(mm(11.5), 200);
 			create_block();
 
 			msleep(500);
 			create_right(38, mm(9), 150);
 			create_block();
-			msleep(500);
+			//msleep(500);
 			create_backward(mm(5), 100);
 			create_block();
 
 			//lower_arm(660);
-			lower_arm(720);
-			create_forward(mm(2), 100);
+			lower_arm(700);
+			create_forward(mm(3), 100);
 			create_block();
 
-			msleep(200);
-			create_right(20, mm(5), 150);
+			//msleep(200);
+			create_right(18, mm(5.5), 150);
 			create_block();
-			msleep(200);
+			//msleep(200);
 			//create_right(24, mm(6), 150);
-			create_drive_direct(200, 50);
+			create_drive_direct(200, 100);
 			msleep(600);
 			create_block();
-			create_drive_direct_dist(178, 215, mm(25));
+			//create_drive_direct_dist(178, 215, mm(25));
+			create_drive_direct_dist(170, 215, mm(25));
+			raise_arm(280);
 			create_block();
-			raise_arm_full();
-			openClaw();
-			
-			// 6th Cube
-			create_backward(mm(2), 200);
-			create_left(12, 0, 150);
-			create_forward(mm(1), 200);
-			
+			//create_right(1, 0, 200);
+			create_forward(mm(2), 200);
 			create_block();
+			
+			//raise_arm_full();
 			extendExtension();
+			create_left(2, 0, 200);
+			create_block();
+			lower_arm(400);
+			openClaw();
 			msleep(500);
-			lower_arm(600);
 			
-			msleep(1000);
+			//raise_arm_full();
+			//create_left(8, 0, 200);
+			//create_backward(mm(2.5), 200);
+			// 6th Cube
+
+			//create_forward(mm(3), 200);
+			
+			msleep(500);
+						
 			retractExtension();
 
 			now();

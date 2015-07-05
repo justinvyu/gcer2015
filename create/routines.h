@@ -25,38 +25,17 @@
 #define ARM_DOWN_POSITION 5050
 #define TOPHAT_THRESH 300
 #define CUBE_SERVO 3
-#define CUBE_CLOSED 1860
+#define CUBE_CLOSED 1900
 #define CUBE_OPEN 960
 
 #define EXTENSION_EXTENDED 950
-#define EXTENSION_RETRACTED 1700
+#define EXTENSION_RETRACTED 1785
 
 #pragma mark - Create Routines
 
-/**
- * Since the KIPR library's create_drive_direct doesn't do what the documentation
- * says it does, we made a "real" function that simply switched around the parameters
- * to make things less confusing.
- * 
- * @param rspeed The speed of the right create motor (1-500)
- * @param lspeed The speed of the left create motor (1-500)
- */
-void create_drive_direct_real(int rspeed, int lspeed) {
-	create_drive_direct(lspeed, rspeed);
-}
-
-/**
- * The Create drives with specified speeds for each motor until either the left bumper
- * or right bumper is pressed, terminating the action. 
- *
- * This is used when sweeping the tribbles & cubes into the Caldera.
- *
- * @param rspeed The speed of the right create motor (1-500)
- * @param lspeed The speed of the left create motor (1-500)
- */
 void create_forward_until_touch(int rspeed, int lspeed) { // Allows for slight curvature
 
-	create_drive_direct_real(rspeed, lspeed);
+	create_drive_direct(rspeed, lspeed);
 	while(get_create_lbump() == 0 || get_create_rbump() == 0) {
 		msleep(10);
 	}
@@ -152,7 +131,8 @@ void raise_arm_half() {
 
 void extendExtension() {
 
-	servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 1);
+	//servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 1);
+	ssp(EXTENSION_SERVO, EXTENSION_EXTENDED);
 	msleep(200);
 
 }
