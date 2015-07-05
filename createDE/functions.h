@@ -5,9 +5,9 @@
 #define _FUNCTIONS_H_
 
 #define ARM_PORT 1
-#define ARM_UP 820
-#define ARM_DOWN 270
-#define ARM_MID 370
+#define ARM_UP 610
+#define ARM_DOWN 0
+#define ARM_MID 25
 
 #define FLIPPER_PORT 0
 #define FLIPPER_OPEN 1800
