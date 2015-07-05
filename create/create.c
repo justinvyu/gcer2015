@@ -103,24 +103,25 @@ int main()
 		state (s_SWEEPBOTGUY) {
 
 			create_right(160, 0, 350);
-			lower_arm(220);
+			lower_arm(350);
 			create_block();
 			msleep(500);
 			
 			create_right(20, 0, 200);
 			create_block();
 
-			//lower_arm_full();
-			lower_arm(2400);
+			lower_arm_full();
+			//lower_arm(2400);
 			// Sweep botguy out of the way if he is to the left of the robot
-			//create_left(112, 0, 280);
-			create_left(160, 0, 250);
+			create_left(92, 0, 280);
+			//create_left(160, 0, 250);
 			create_block();
 
-			lower_arm(1000);
-			//create_forward(mm(6), 250);
+			//lower_arm(1000);
+			create_forward(mm(6), 250);
 			// Sweep botguy out of the way if he is to the right of the robot & avoid charlie's robot
-			create_right(190, 0, 250);
+			create_right(91, 0, 200);
+			//create_right(180, 0, 250);
 			create_block();
 			msleep(200);
 			// Push tribbles to prevent tripping later on
@@ -135,7 +136,7 @@ int main()
 			// Readjust
 			create_left(91, 0, 200);
 			create_drive_direct(-200, -200);
-			msleep(1000);
+			msleep(200);
 			create_block();
 	
 			lower_arm(220); 
