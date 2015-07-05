@@ -12,6 +12,7 @@
 #define FLIPPER_PORT 0
 #define FLIPPER_OPEN 1800
 #define FLIPPER_OUT 900
+#define FLIPPER_REST 1950
 
 #define ssp set_servo_position
 
