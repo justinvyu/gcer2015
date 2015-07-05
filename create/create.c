@@ -48,7 +48,7 @@ int main()
 		closeClaw();
 	}
 	
-	//wait_for_light(LIGHT_SENS);
+	wait_for_light(LIGHT_SENS);
 	shut_down_in(119);
 	start(); // Time
 
@@ -134,7 +134,7 @@ int main()
 			//create_left(102.5, 0, 200);
 			
 			// Readjust
-			create_left(91, 0, 200);
+			create_left(89, 0, 200);
 			create_drive_direct(-200, -200);
 			msleep(200);
 			create_block();
@@ -168,13 +168,16 @@ int main()
 		state (s_MOVEUNDERMESA) {
 			
 			msleep(500);
-			create_left(91, 0, 150);
+			create_left(89, 0, 150);
 			create_forward_until_touch(200, 200);
 			create_block();
 			
 			//msleep(500);
 			//create_square();
 			create_backward(mm(26.5), 200);
+			create_block();
+			create_drive_direct(-200, -200);
+			msleep(1500);
 			create_block();
 			msleep(500);
 
@@ -200,11 +203,11 @@ int main()
 
 		state (s_GRABCUBES) {
 			
-			create_backward(mm(5), 200);
+			create_backward(mm(3), 200);
 			create_block();
 			openClawPartial(CUBE_OPEN + 200);
 			lower_arm(2400);
-			create_backward(mm(4), 90);
+			create_backward(mm(5), 90);
 			create_block();
 			closeClaw();
 			raise_arm(2500);
@@ -256,24 +259,22 @@ int main()
 			create_block();
 			
 			//raise_arm_full();
+			extendExtension();
+			create_left(2, 0, 200);
+			create_block();
+			lower_arm(400);
 			openClaw();
 			msleep(500);
 			
-			raise_arm_full();
-			create_left(6, 0, 200);
-			
+			//raise_arm_full();
+			//create_left(8, 0, 200);
+			//create_backward(mm(2.5), 200);
 			// 6th Cube
 
 			//create_forward(mm(3), 200);
 			
-			create_block();
-			extendExtension();
 			msleep(500);
-			lower_arm(700);
-			
-			create_block();
-			
-			msleep(1000);
+						
 			retractExtension();
 
 			now();
