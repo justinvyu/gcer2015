@@ -25,11 +25,11 @@
 #define ARM_DOWN_POSITION 5050
 #define TOPHAT_THRESH 300
 #define CUBE_SERVO 3
-#define CUBE_CLOSED 1860
+#define CUBE_CLOSED 1900
 #define CUBE_OPEN 960
 
 #define EXTENSION_EXTENDED 950
-#define EXTENSION_RETRACTED 1700
+#define EXTENSION_RETRACTED 1785
 
 #pragma mark - Create Routines
 
@@ -131,7 +131,8 @@ void raise_arm_half() {
 
 void extendExtension() {
 
-	servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 1);
+	//servo_set(EXTENSION_SERVO, EXTENSION_EXTENDED, 1);
+	ssp(EXTENSION_SERVO, EXTENSION_EXTENDED);
 	msleep(200);
 
 }
