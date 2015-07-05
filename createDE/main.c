@@ -88,5 +88,6 @@ int main()
 	
 	//arm_shake();
 	create_disconnect();
+	disable_servos();
 }
 
